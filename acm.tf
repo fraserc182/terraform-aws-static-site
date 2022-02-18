@@ -5,7 +5,7 @@ resource "aws_acm_certificate" "ssl" {
 
 resource "aws_route53_record" "validation_record" {
   for_each = {
-    for dvo in aws_acm_certificate.example.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.ssl.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
@@ -22,5 +22,5 @@ resource "aws_route53_record" "validation_record" {
 
 resource "aws_acm_certificate_validation" "ssl_validate" {
   certificate_arn         = aws_acm_certificate.ssl.arn
-  validation_record_fqdns = [for record in aws_route53_record.ssl : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.validation_record : record.fqdn]
 }
