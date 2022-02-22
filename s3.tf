@@ -22,6 +22,12 @@ resource "aws_s3_bucket_website_configuration" "www_bucket" {
   }
 }
 
+resource "aws_s3_bucket_policy" "www_bucket" {
+  bucket = aws_s3_bucket.www_bucket.id
+  policy = templatefile("${path.module}/files/s3-policy.json", { bucket = "www.${var.bucket_name}" })
+
+}
+
 resource "aws_s3_bucket_cors_configuration" "www_bucket" {
   bucket = aws_s3_bucket.www_bucket.id
 
@@ -51,4 +57,10 @@ resource "aws_s3_bucket_website_configuration" "root_bucket" {
   redirect_all_requests_to {
     host_name = "https://www.${var.domain_name}"
   }
+}
+
+resource "aws_s3_bucket_policy" "root_bucket" {
+  bucket = aws_s3_bucket.root_bucket.id
+  policy = templatefile("${path.module}/files/s3-policy.json", { bucket = var.bucket_name })
+
 }
