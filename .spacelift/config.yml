@@ -13,8 +13,9 @@ tests:
   - name: Test the module with 1.1.6
     terraform_version: 1.1.6
     environment:
-      TF_VAR_domain_name: test_domain.com
-      TF_VAR_bucket_name: test_bucket
+      domain_name: test_domain.com
+      bucket_name: test_bucket
+      region: eu-west-1
       
   - name: Ensure that the submodule can fail
     # You can use negative to indicate that the test case is expected to fail
