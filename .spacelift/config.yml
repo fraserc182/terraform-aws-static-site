@@ -11,4 +11,4 @@ test_defaults:
 # The set of tests to run to verify your module works correctly
 tests:
   - name: module
-    project_root: ../
+    project_root: ./
